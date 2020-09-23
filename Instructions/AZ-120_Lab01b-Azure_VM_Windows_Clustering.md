@@ -264,7 +264,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  From the **az12001b-cl-vm0** blade, navigate to the **az12001b-cl-vm0 - Disks** blade.
 
-1.  From the **az12001b-cl-vm0 - Disks** blade, attach data disks with the following settings to az12001b-cl-vm0:
+1.  From the **az12001b-cl-vm0 - Disks** blade, select Attach existing disks and attach data disks with the following settings to az12001b-cl-vm0:
 
     -   LUN: **0**
 
@@ -282,7 +282,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  From the **az12001b-cl-vm1** blade, navigate to the **az12001b-cl-vm1 - Disks** blade.
 
-1.  From the **az12001b-cl-vm1 - Disks** blade, attach data disks with the following settings to az12001b-cl-vm1:
+1.  From the **az12001b-cl-vm1 - Disks** blade, select Attach existing disks and attach data disks with the following settings to az12001b-cl-vm1:
 
     -   LUN: **0**
 
@@ -640,7 +640,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   IP version: **IPv4**
 
-    -   Frontend IP address: **192.168.0.240 (LoadBalancerFrontEnd)**
+    -   Frontend IP address: **10.0.1.240 (LoadBalancerFrontEnd)**
 
     -   HA Ports: **Disabled**
 
