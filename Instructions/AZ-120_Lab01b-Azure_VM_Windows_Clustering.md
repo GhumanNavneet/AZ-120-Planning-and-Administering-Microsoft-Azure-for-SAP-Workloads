@@ -347,6 +347,8 @@ Duration: 40 minutes
 
 1.  Navigate to the **Storage Pools** view and verify that you see all the disks you attached to the Azure VM in the previous exercise.
 
+1. On the Server Manager blade, under **STORAGE POOLS** click on **Tasks** which is at the top right corner. From the dropdown, select **New Storage Pool**.
+
 1.  Use the **New Storage Pools Wizard** to create a new storage pool with the following settings:
 
     -   Name: **Data Storage Pool**
@@ -354,6 +356,8 @@ Duration: 40 minutes
     -   Physical Disks: *select the 3 disks with disk numbers corresponding to the first three LUN numbers (0-2) and set their allocation to* **Automatic**
 
     > **Note**: Use the entry in the **Chassis** column to identify the **LUN** number.
+
+1. On the Server Manager blade, under **VIRTUAL DISKS** click on **Tasks** which is at the top right corner. From the dropdown, select **New Virtual Disk**
 
 1.  Use the **New Virtual Disk Wizard** to create a new virtual disk with the following settings:
 
