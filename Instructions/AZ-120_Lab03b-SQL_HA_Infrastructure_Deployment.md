@@ -451,7 +451,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 1.  In the **Failover Cluster Manager** console, review the **az12003b-db-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 6: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
+### Task 5: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
 
 1.  From the RDP session to az12003b-vm0, use Remote Desktop to connect to **i20-ascs-0.adatum.com** Azure VM. When prompted, provide the following credentials:
 
@@ -498,7 +498,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 1.  In the **Failover Cluster Manager** console, review the **az12003b-ascs-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 7: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
+### Task 6: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
 
 1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the Windows PowerShell ISE session, run the following to configure registry entries required to faciliate the installation of SAP ASCS components and the use of virtual names:
 
