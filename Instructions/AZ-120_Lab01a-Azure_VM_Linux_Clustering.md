@@ -48,7 +48,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
    - Subscription: *the name of your Azure subscription*
 
-   - Resource group: *select existing resource group* **az12001a-RG-{deploy-id}**
+   - Resource group: *select existing resource group* **az12001a-RG-{deployment-id}**
 
    - Region: *an Azure region where you can deploy Azure VMs and which is close to the lab location*
 
@@ -64,7 +64,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
    - Subscription: *the name of your Azure subscription*
 
-   - Resource group: *select existing resource group* **az12001a-RG-{deploy-id}**
+   - Resource group: *select existing resource group* **az12001a-RG-{deployment-id}**
 
    - Virtual machine name: **az12001a-vm0**
 
@@ -140,7 +140,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
    - Subscription: *the name of your Azure subscription*
 
-   - Resource group: **az12001a-RG-{deploy-id}**
+   - Resource group: **az12001a-RG-{deployment-id}**
 
    - Virtual machine name: **az12001a-vm1**
 
@@ -216,12 +216,13 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 2.  In the Cloud Shell pane, run the following command, to create the first set of 8 managed disks that you will attach to the first Azure VM you deployed in the previous task:
 
    ```cli
-   RESOURCE_GROUP_NAME='az12001a-RG-{deploy-id}'
+   RESOURCE_GROUP_NAME='az12001a-RG-{deployment-id}'
 
    LOCATION=$(az group list --query "[?name == '$RESOURCE_GROUP_NAME'].location" --output tsv)
 
    for I in {0..7}; do az disk create --resource-group $RESOURCE_GROUP_NAME --name az12001a-vm0-DataDisk$I --size-gb 128 --location $LOCATION --sku Premium_LRS; done
    ```
+      >**Note:** You can get the deployment-id details from the environment details page.
 
 3.  In the Cloud Shell pane, run the following command, to create the second set of 8 managed disks that you will attach to the second Azure VM you deployed in the previous task:
 
@@ -239,7 +240,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
    - Disk name: **az12001a-vm0-DataDisk0**
 
-   - Resource group: **az12001a-RG**
+   - Resource group: **az12001a-RG-{deployment-id}**
 
    - HOST CACHING: **Read-only**
 
@@ -257,7 +258,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
    - Disk name: **az12001a-vm1-DataDisk0**
 
-   - Resource group: **az12001a-RG**
+   - Resource group: **az12001a-RG-{deployment-id}**
 
    - HOST CACHING: **Read-only**
 
@@ -281,10 +282,11 @@ In this exercise, you will configure operating system and storage on Azure VMs r
 1.  In the Cloud Shell pane, run the following command, to identify the public IP address of the first Azure VM you deployed in the previous exercise:
 
    ```cli
-   RESOURCE_GROUP_NAME='az12001a-RG-{deploy-id}'
+   RESOURCE_GROUP_NAME='az12001a-RG-{deployment-id}'
 
    PIP=$(az network public-ip show --resource-group $RESOURCE_GROUP_NAME --name az12001a-vm0-ip --query ipAddress --output tsv)
    ```
+      >**Note:** You can get the deployment-id details from the environment details page.
 
 3.  In the Cloud Shell pane, run the following command, to establish an SSH session to the IP address you identified in the previou step:
 
@@ -655,7 +657,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
    - Subscription: *the name of your Azure subscription*
 
-   - Resource group: **az12001a-RG-{deploy-id}**
+   - Resource group: **az12001a-RG-{deployment-id}**
 
    - Name: **az12001a-lb0**
 
@@ -711,7 +713,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
    - Backend pool: **az12001a-lb0-bepool (2 virtual machines)**
 
-   - Health probe:**az12001a-lb0-hprobe (TCP:62504)**
+   - Health probe:**az12001a-lb0-hprobe (TCP:62500)**
 
    - Session persistence: **None**
 
@@ -726,7 +728,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 1.  In the Cloud Shell pane, run the following command to create the public IP address to be used by the second load balancer:
 
    ```cli
-   RESOURCE_GROUP_NAME='az12001a-RG-{deploy-id}'
+   RESOURCE_GROUP_NAME='az12001a-RG-{deployment-id}'
 
    LOCATION=$(az group list --query "[?name == '$RESOURCE_GROUP_NAME'].location" --output tsv)
 
@@ -734,6 +736,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
    az network public-ip create --resource-group $RESOURCE_GROUP_NAME --name $PIP_NAME --sku Standard --location $LOCATION
    ```
+      >**Note:** You can get the deployment-id details from the environment details page.
 
 3.  In the Cloud Shell pane, run the following command to create the second load balancer:
 
@@ -783,7 +786,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
    - Subscription: *the name of your Azure subscription*
 
-   - Resource group: **az12001a-RG-{deploy-id}**
+   - Resource group: **az12001a-RG-{deployment-id}**
 
    - Virtual machine name: **az12001a-vm2**
 
@@ -825,7 +828,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
    - Enable basic plan for free: **No**
 
-   - Boot diagnostics: **Off**
+   - Boot diagnostics: **Disable**
 
    - OS guest diagnostics: **Off**
 
