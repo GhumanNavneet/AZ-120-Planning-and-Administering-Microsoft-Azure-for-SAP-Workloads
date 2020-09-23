@@ -133,6 +133,79 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 1. If the deploymwnt fails, review the deployment details and identify the VM(s) where the installation of the CustomScriptExtension failed, then navigate to the blade of the VM(s) you identified in the previous step, select Extensions, and from the Extensions blade, remove the CustomScript extension and in the Azure portal, navigate to the az12003a-sap-RG resource group blade, select Deployments, select the link to the failed deployment, and select Redeploy. To redeploy, you will need to select the target resource group (az12003a-sap-RG) and provide the password for the root account (Pa55w.rd1234).
 
 
+
+### Task 3: Deploy a jump host
+
+   > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2019 Datacenter that will serve as a jump host. 
+
+1.  From the lab computer, in the Azure portal, click **+ Create a resource**.
+
+1.  From the **New** blade, initiate creation of a new Azure VM based on the **Windows Server 2019 Datacenter** image.
+
+1.  Provision a Azure VM with the following settings:
+
+    -   Subscription: *the name of your Azure subscription*
+
+    -   Resource group: *the name of a new resource group* **az12003a-dmz-RG**
+
+    -   Virtual machine name: **az12003a-vm0**
+
+    -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
+
+    -   Availability options: **No infrastructure redundancy required**
+
+    -   Image: **Windows Server 2019 Datacenter**
+
+    -   Size: **Standard D2s v3**
+
+    -   Username: **Student**
+
+    -   Password: **Pa55w.rd1234**
+
+    -   Public inbound ports: **Allow selected ports**
+
+    -   Select inbound ports: **RDP (3389)**
+
+    -   Already have a Windows license?: **No**
+
+    -   OS disk type: **Standard HDD**
+
+    -   Virtual network: **az12003a-sap-vnet**
+
+    -   Subnet: *a new subnet named* **bastionSubnet (10.3.255.0/24)**
+
+    -   Public IP: *a new IP address named* **az12003a-vm0-ip**
+
+    -   NIC network security group: **Basic**
+
+    -   Public inbound ports: **Allow selected ports**
+
+    -   Select inbound ports: **RDP (3389)**
+
+    -   Accelerated networking: **Off**
+
+    -   Place this virtual machine behind an existing load balancing solutions: **No**
+
+    -   Enable basic plan for free: **No**
+
+    -   Boot diagnostics: **Disable**
+
+    -   OS guest diagnostics: **Off**
+
+    -   System assigned managed identity: **Off**
+
+    -   Login with AAD credentials (Preview): **Off**
+
+    -   Enable auto-shutdown: **Off**
+
+    -   Enable backup: **Off**
+
+    -   Extensions: *None*
+
+    -   Tags: *None*
+
+1.  Wait for the provisioning to complete. This should take a few minutes.
+
 > **Result**: After you completed this exercise, you have provisioned Azure resources necessary to support highly available SAP NetWeaver deployments
 
 
