@@ -165,73 +165,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  Do not wait for the deployment to complete but instead proceed to the next task. 
 
-### Task 5: Deploy the Scale-Out File Server (SOFS) cluster
-
-In this task, you will deploy the scale-out file server (SOFS) cluster that will be hosting a file share for the SAP ASCS servers by using an Azure Resource Manager QuickStart template from GitHub available at [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
-
-1.  On the lab computer, start a browser and browse to [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
-
-    > **Note**: Make sure to use Microsoft Edge or a third party browser. Do not use Internet Explorer.
-
-1.  On the page titled **Use Managed Disks to Create a Storage Spaces Direct (S2D) Scale-Out File Server (SOFS) Cluster with Windows Server 2016**, click **Deploy to Azure**. This will automatically redirect your browser to the Azure portal and display the **Custom deployment** blade.
-
-1.  From the **Custom deployment** blade, initiate a deployment with the following settings:
-
-    -   Subscription: **Your Azure subscription name**.
-
-    -   Resource group: *select existing resource group* **az12003b-s2d-RG-{deployment-id}**
-
-    -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
-
-    -   Name Prefix: **i20**
-
-    -   Vm Size: **Standard D4S\_v3**
-
-    -   Enable Accelerated Networking: **true**
-
-    -   Image Sku: **2016-Datacenter-Server-Core**
-
-    -   VM Count: **2**
-
-    -   VM Disk Size: **128**
-
-    -   VM Disk Count: **3**
-
-    -   Existing Domain Name: **adatum.com**
-
-    -   Admin Username: **Student**
-
-    -   Admin Password: **Pa55w.rd1234**
-
-    -   Existing Virtual Network RG Name: **az12003b-ad-RG**
-
-    -   Existing Virtual Network Name: **adVNet**
-
-    -   Existing Subnet Name: **s2dSubnet**
-
-    -   Sofs Name: **sapglobalhost**
-
-    -   Share Name: **sapmnt**
-
-    -   Scheduled Update Day: **Sunday**
-
-    -   Scheduled Update Time: **3:00 AM**
-
-    -   Realtime Antimalware Enabled: **false**
-
-    -   Scheduled Antimalware Enabled: **false**
-
-    -   Scheduled Antimalware Time: **120**
-
-    -   \_artifacts Location: **Accept the default value**
-
-    -   \_artifacts Location Sas Token: **Leave the default value**
-
-    -   I agree to the terms and conditions stated above: *enabled*
-
-1.  The deployment might take about 20 minutes. Do not wait for the deployment to complete but instead proceed to the next task.
-
-### Task 5: Deploy a jump host
+### Task 4: Deploy a jump host
 
    > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2016 Datacenter that will serve as a jump host. 
 
