@@ -1,7 +1,7 @@
 # AZ 120 Module 3: Implementing SAP on Azure
 # Lab 3b: Implement SAP architecture on Azure VMs running Windows
 
-Estimated Time: 150 minutes
+Estimated Time: 180 minutes
 
 All tasks in this lab are performed from the Azure portal (including a PowerShell Cloud Shell session)  
 
@@ -22,12 +22,6 @@ After completing this lab, you will be able to:
 -   Configure operating system of Azure VMs running Windows to support a highly available SAP NetWeaver deployment
 
 -   Configure clustering on Azure VMs running Windows to support a highly available SAP NetWeaver deployment
-
-## Requirements
-
--   A Microsoft Azure subscription
-
--   A lab computer running Windows 10, Windows Server 2016, or Windows Server 2016 with access to Azure
 
 
 ## Exercise 1: Provision Azure resources necessary to support highly available SAP NetWeaver deployments
@@ -54,7 +48,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *a new resource group named* **az12003b-ad-RG**
+    -   Resource group: *select existing resource group* **az12003b-ad-RG-{deployment-id}**
 
     -   Location: *an Azure region where you can deploy Azure VMs and which is closest to the lab location*
 
@@ -81,9 +75,9 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 ### Task 2: Provision subnets that will host Azure VMs running highly available SAP NetWeaver deployment and the S2D cluster.
 
-1.  In the Azure Portal, navigate to the blade of the **az12003b-ad-RG** resource group.
+1.  In the Azure Portal, navigate to the blade of the **az12003b-ad-RG-{deployment-id}** resource group.
 
-1.  On the **az12003b-ad-RG** resource group blade, in the list of resources, locate the **adVNET** virtual network and click its entry to display the **adVNET** blade.
+1.  On the **az12003b-ad-RG-{deployment-id}** resource group blade, in the list of resources, locate the **adVNET** virtual network and click its entry to display the **adVNET** blade.
 
 1.  From the **adVNET** blade, navigate to its **adVNET - Subnets** blade. 
 
@@ -103,10 +97,10 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     > **Note**: If this is the first time you are launching Cloud Shell in the current Azure subscription, you will be asked to create an Azure file share to persist Cloud Shell files. If so, accept the defaults, which will result in creation of a storage account in an automatically generated resource group.
 
-1.  In the Cloud Shell pane, run the following command to identify the virtual network created in the previous task:
+1.  In the Cloud Shell pane, run the following command to identify the virtual network created in the previous task (please find the deployment id from environment detials tab):
 
     ```
-    $resourceGroupName = 'az12003b-ad-RG'
+    $resourceGroupName = 'az12003b-ad-RG-{deployment-id}'
 
     $vNetName = 'adVNet'
 
@@ -135,7 +129,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *a new resource group named* **az12003b-sap-RG**
+    -   Resource group: *select existing resource group* **az12003b-sap-RG-{deployment-id}**
 
     -   Location: *the same Azure region that you specified in the first task of this exercise*
 
@@ -185,7 +179,7 @@ In this task, you will deploy the scale-out file server (SOFS) cluster that will
 
     -   Subscription: **Your Azure subscription name**.
 
-    -   Resource group: *a new resource group named* **az12003b-s2d-RG**
+    -   Resource group: *select existing resource group* **az12003b-s2d-RG-{deployment-id}**
 
     -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
 
@@ -249,7 +243,7 @@ In this task, you will deploy the scale-out file server (SOFS) cluster that will
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *a new resource group named* **az12003b-dmz-RG**
+    -   Resource group: *select existing resource group* **az12003b-dmz-RG-{deployment-id}**
 
     -   Virtual machine name: **az12003b-vm0**
 
@@ -326,10 +320,10 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the Azure Portal, start a PowerShell session in Cloud Shell. 
 
-1.  In the Cloud Shell pane, run the following command, to join the Windows Server Azure VMs you deployed in the third task of the previous exercise to the **adatum.com** Active Directory domain:
+1.  In the Cloud Shell pane, run the following command, to join the Windows Server Azure VMs you deployed in the third task of the previous exercise to the **adatum.com** Active Directory domain (please make sure to change the deployment id):
 
     ```
-    $resourceGroupName = 'az12003b-sap-RG'
+    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -385,7 +379,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12003b-sap-RG**
+    -   Resource group: **az12003b-sap-RG-{deployment-id}**
 
     -   Storage account name: *any unique name consisting of between 3 and 24 letters and digits*
 
@@ -469,7 +463,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
 
     ```
-    $resourceGroupName = 'az12003b-sap-RG'
+    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
 
     $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
 
@@ -546,7 +540,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
 
     ```
-    $resourceGroupName = 'az12003b-sap-RG'liveid
+    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
 
     $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
 
