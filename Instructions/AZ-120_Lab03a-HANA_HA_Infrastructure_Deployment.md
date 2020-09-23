@@ -485,7 +485,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
     -   Do you wish to configure a virtual IP address (y/n)?: **n**
 
-   > **Note**: The clustering setup generates an **hacluster** account with its password set to **linux**. You will chane it later in this task.
+   > **Note**: The clustering setup generates an **hacluster** account with its password set to **linux**. You will change it later in this task.
 
 1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-1, run the following to join the HA cluster on i20-db-0 from i20-db-1:
 
@@ -548,7 +548,13 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 3: Configure STONITH clustering options
 
-1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-defaults.txt** with the following content:
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-defaults.txt** by running the below command
+
+     ```
+    vi crm-defaults.txt
+    ```
+
+1.  Press i to enter into **Insert** mode and paste the following content:
 
     ```
     property $id="cib-bootstrap-options" \
@@ -628,7 +634,13 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 7: Configure the STONITH cluster device 
 
-1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-fencing.txt** with the following content (where `subscription_id`, `tenant_id`, `login_id,` and `password` are placeholders for the values you identified in Exercise 3 Task 5: (subscription and tenant id's can be retrieved from azure portal)
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-fencing.txt** by running the below command
+
+     ```
+    vi crm-fencing.txt
+    ```
+    
+1.  Press i to enter into **Insert** mode and paste the following content (where `subscription_id`, `tenant_id`, `login_id,` and `password` are placeholders for the values you identified in Exercise 3 Task 5: (subscription and tenant id's can be retrieved from azure portal)
 
     ```
     primitive rsc_st_azure_1 stonith:fence_azure_arm \
