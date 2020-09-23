@@ -1,7 +1,7 @@
 # AZ 120 Module 3: Implementing SAP on Azure
 # Lab 3b: Implement SAP architecture on Azure VMs running Windows
 
-Estimated Time: 180 minutes
+Estimated Time: 150 minutes
 
 All tasks in this lab are performed from the Azure portal (including a PowerShell Cloud Shell session)  
 
