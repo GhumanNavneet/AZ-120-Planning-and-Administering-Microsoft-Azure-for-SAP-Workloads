@@ -446,42 +446,12 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
-1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
-
-    ```
-    Install-PackageProvider -Name NuGet -Force
-
-    Install-Module -Name Az -Force
-    ```
-
-1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
-
-    ```
-    Add-AzAccount
-    ```
-
-    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
-
-1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
-
-    ```
-    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
-
-    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
-
-    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
-
-    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
-    ```
-
 1.  To verify the resulting configuration, within the RDP session to i20-db-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-db-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
 ### Task 6: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
-
-> **Note**: Ensure that the deployment of the S2D cluster you initiated in task 4 of exercise 1 has successfully completed before starting this task.
 
 1.  From the RDP session to az12003b-vm0, use Remote Desktop to connect to **i20-ascs-0.adatum.com** Azure VM. When prompted, provide the following credentials:
 
@@ -523,55 +493,12 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
-1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
-
-    ```
-    Install-PackageProvider -Name NuGet -Force
-
-    Install-Module -Name Az -Force
-    ```
-
-1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
-
-    ```
-    Add-AzAccount
-    ```
-
-    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
-
-1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
-
-    ```
-    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
-
-    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
-
-    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
-
-    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
-    ```
-
 1.  To verify the resulting configuration, Within the RDP session to i20-ascs-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-ascs-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 7: Set permissions on the \\\\GLOBALHOST\\sapmnt share
-
-In this task, you will set share-level permissions on the **\\\\GLOBALHOST\\sapmnt** share.
-
-> **Note**: By default, the Full Control permissions are granted only to the ADATUM\Student account. 
-
-1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the **Windows PowerShell ISE** window, run the following:
-
-    ```
-    $remoteSession = New-CimSession -ComputerName SAPGLOBALHOST
-
-    Grant-SmbShareAccess -Name sapmnt -AccountName 'ADATUM\Domain Admins' -AccessRight Full -CimSession $remoteSession -Force
-   
-    ```
-
-### Task 8: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
+### Task 7: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
 
 1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the Windows PowerShell ISE session, run the following to configure registry entries required to faciliate the installation of SAP ASCS components and the use of virtual names:
 
