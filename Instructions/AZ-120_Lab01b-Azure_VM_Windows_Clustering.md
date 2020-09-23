@@ -69,7 +69,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *a new resource group named* **az12001b-ad-RG**
+    -   Resource group: *select existing resource group named* **az12001b-ad-RG-{deploy-id}**
 
     -   Location: *an Azure region where you can deploy Azure VMs and which is closest to the lab location*
 
@@ -80,6 +80,8 @@ In this exercise, you will deploy Azure infrastructure compute components necess
     -   Domain Name: **adatum.com**
 
     -   DnsPrefix: *any unique valid DNS prefix*
+    
+          >**Note:** DnsPrefix can include lowercase and 3-24 characters consisting of letters & numbers and be unique to all of Azure.  
 
     -   Pdc RDP Port: **3389**
 
@@ -103,7 +105,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *a new resource group named* **az12001b-cl-RG**
+    -   Resource group: *select existing resource group named* **az12001b-cl-RG-{deploy-id}**
 
     -   Virtual machine name: **az12001b-cl-vm0**
 
@@ -149,7 +151,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Enable basic plan for free: **No**
 
-    -   Boot diagnostics: **Off**
+    -   Boot diagnostics: **Disable**
 
     -   OS guest diagnostics: **Off**
 
@@ -171,7 +173,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   Virtual machine name: **az12001b-cl-vm1**
 
@@ -215,7 +217,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Enable basic plan for free: **No**
 
-    -   Boot diagnostics: **Off**
+    -   Boot diagnostics: **Disable**
 
     -   OS guest diagnostics: **Off**
 
@@ -242,7 +244,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 1.  In the Cloud Shell pane, run the following command, to create the first set of 4 managed disks that you will attach to the first Azure VM you deployed in the previous task:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG'
+    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -267,7 +269,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Disk name: **az12001b-cl-vm0-DataDisk0**
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   HOST CACHING: **Read-only**
 
@@ -285,7 +287,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Disk name: **az12001b-cl-vm1-DataDisk0**
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   HOST CACHING: **Read-only**
 
@@ -313,7 +315,7 @@ Duration: 40 minutes
 1.  In the Cloud Shell pane, run the following command, to join the Windows Server 2019 Azure VMs you deployed in the second task of the previous exercise to the **adatum.com** Active Directory domain:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG'
+    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
 
     $location = (Get-AzureRmResourceGroup -Name $resourceGroupName).Location
 
@@ -429,7 +431,7 @@ Duration: 40 minutes
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   Storage account name: *any unique name consisting of between 3 and 24 letters and digits*
 
@@ -512,7 +514,7 @@ Duration: 40 minutes
 1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG'
+    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
 
     $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
 
@@ -580,7 +582,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   Name: **az12001b-cl-lb0**
 
@@ -657,7 +659,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 1.  In the Cloud Shell pane, run the following command to create the public IP address to be used by the second load balancer:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG'
+    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -752,7 +754,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG**
+    -   Resource group: **az12001b-cl-RG-{deploy-id}**
 
     -   Virtual machine name: **az12001b-vm2**
 
@@ -794,7 +796,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   Place this virtual machine behind an existing load balancing solutions: **No**
 
-    -   Boot diagnostics: **Off**
+    -   Boot diagnostics: **Disable**
 
     -   OS guest diagnostics: **Off**
 
@@ -818,33 +820,3 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
 > **Result**: After you completed this exercise, you have provisioned Azure network resources necessary to support highly available SAP NetWeaver deployments
 
-## Exercise 4: Remove lab resources
-
-Duration: 10 minutes
-
-In this exercise, you will remove resources provisioned in this lab.
-
-#### Task 1: Open Cloud Shell
-
-1. At the top of the portal, click the **Cloud Shell** icon to open Cloud Shell pane and choose PowerShell as the shell.
-
-1. At the **Cloud Shell** command prompt at the bottom of the portal, type in the following command and press **Enter** to list all resource groups you created in this lab:
-
-    ```
-    Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like 'az12001b-*'} | Select-Object ResourceGroupName
-    ```
-
-1. Verify that the output contains only the resource groups you created in this lab. These groups will be deleted in the next task.
-
-#### Task 2: Delete resource groups
-
-1. At the **Cloud Shell** command prompt, type in the following command and press **Enter** to delete the resource groups you created in this lab
-
-    ```
-    Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like 'az12001b-*'} | Remove-AzResourceGroup -Force  
-    ```
-
-1. Close the **Cloud Shell** prompt at the bottom of the portal.
-
-
-> **Result**: After you completed this exercise, you have removed the resources used in this lab.
