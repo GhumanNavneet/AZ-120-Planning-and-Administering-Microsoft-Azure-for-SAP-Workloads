@@ -336,6 +336,8 @@ In this exercise, you will configure operating system of Azure VMs running Windo
     foreach ($vmName in $vmNames) { Set-AzVMExtension -ResourceGroupName $resourceGroupName -ExtensionType 'JsonADDomainExtension' -Name 'joindomain' -Publisher "Microsoft.Compute" -TypeHandlerVersion "1.0" -Vmname $vmName -Location $location -SettingString $settingString -ProtectedSettingString $protectedSettingString }
     ```
 
+   > **Note**: Since there are six vms, will show six results after the commands run.
+
 ### Task 2: Examine the storage configuration of the database tier Azure VMs.
 
 1.  From the lab computer, in the Azure portal, navigate to the **az12003b-vm0** blade.
