@@ -23,12 +23,6 @@ After completing this lab, you will be able to:
 
 -   Configure clustering on Azure VMs running Linux to support a highly available SAP NetWeaver deployment
 
-## Requirements
-
--   A Microsoft Azure subscription with the sufficient number of available DSv3 vCPUs (2 x 4) and DSv2 (1 x 1) vCPUs in an Azure region that supports availability zones
-
--   A lab computer running Windows 10, Windows Server 2016, or Windows Server 2019 with access to Azure
-
 
 ## Exercise 1: Provision Azure resources necessary to support highly available SAP NetWeaver deployments
 
@@ -40,27 +34,25 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  From the lab computer, start a Web browser, and navigate to the Azure portal at https://portal.azure.com
 
-1.  If prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you will be using for this lab and the the Global Administrator role in the Azure AD tenant associated with your subscription.
+1.  If prompted, sign in with the azure credentials provided , you can find them from the environment details tab, which you will be using for this lab and the the Global Administrator role in the Azure AD tenant associated with your subscription.
 
 1.  In the Azure Portal, start a Bash session in Cloud Shell. 
 
     > **Note**: If this is the first time you are launching Cloud Shell in the current Azure subscription, you will be asked to create an Azure file share to persist Cloud Shell files. If so, accept the defaults, which will result in creation of a storage account in an automatically generated resource group.
 
-1.  In the Cloud Shell pane, run the following command to specify the Azure region that supports availability zones and where you want to create resources for this lab (replace `<region>` with the name of the Azure region):
+1.  In the Cloud Shell pane, run the following command to specify the Azure region that supports availability zones and where you want to create resources for this lab (replace `<region>` with the name of the Azure region as same as your resource group location):
 
     ```
     LOCATION='<region>'
     ```
 
-1.  In the Cloud Shell pane, run the following command to create a resource group in the region you specified:
+1.  In the Cloud Shell pane, run the following command :
 
     ```
     RESOURCE_GROUP_NAME='az12003a-sap-RG'
-
-    az group create --resource-group $RESOURCE_GROUP_NAME --location $LOCATION
     ```
 
-1.  In the Cloud Shell pane, run the following command to create a virtual network with a single subnet in the resource group you created:
+1.  In the Cloud Shell pane, run the following command to create a virtual network with a single subnet in the resource group :
 
     ```
     VNET_NAME='az12003a-sap-vnet'
@@ -138,77 +130,8 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  Do not Wait for the deployment to complete but instead proceed to the next task. 
 
-### Task 3: Deploy a jump host
+1. If the deploymwnt fails, review the deployment details and identify the VM(s) where the installation of the CustomScriptExtension failed, then navigate to the blade of the VM(s) you identified in the previous step, select Extensions, and from the Extensions blade, remove the CustomScript extension and in the Azure portal, navigate to the az12003a-sap-RG resource group blade, select Deployments, select the link to the failed deployment, and select Redeploy. To redeploy, you will need to select the target resource group (az12003a-sap-RG) and provide the password for the root account (Pa55w.rd1234).
 
-   > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2019 Datacenter that will serve as a jump host. 
-
-1.  From the lab computer, in the Azure portal, click **+ Create a resource**.
-
-1.  From the **New** blade, initiate creation of a new Azure VM based on the **Windows Server 2019 Datacenter** image.
-
-1.  Provision a Azure VM with the following settings:
-
-    -   Subscription: *the name of your Azure subscription*
-
-    -   Resource group: *the name of a new resource group* **az12003a-dmz-RG**
-
-    -   Virtual machine name: **az12003a-vm0**
-
-    -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
-
-    -   Availability options: **No infrastructure redundancy required**
-
-    -   Image: **Windows Server 2019 Datacenter**
-
-    -   Size: **Standard D2s v3**
-
-    -   Username: **Student**
-
-    -   Password: **Pa55w.rd1234**
-
-    -   Public inbound ports: **Allow selected ports**
-
-    -   Select inbound ports: **RDP (3389)**
-
-    -   Already have a Windows license?: **No**
-
-    -   OS disk type: **Standard HDD**
-
-    -   Virtual network: **az12003a-sap-vnet**
-
-    -   Subnet: *a new subnet named* **bastionSubnet (10.3.255.0/24)**
-
-    -   Public IP: *a new IP address named* **az12003a-vm0-ip**
-
-    -   NIC network security group: **Basic**
-
-    -   Public inbound ports: **Allow selected ports**
-
-    -   Select inbound ports: **RDP (3389)**
-
-    -   Accelerated networking: **Off**
-
-    -   Place this virtual machine behind an existing load balancing solutions: **No**
-
-    -   Enable basic plan for free: **No**
-
-    -   Boot diagnostics: **Off**
-
-    -   OS guest diagnostics: **Off**
-
-    -   System assigned managed identity: **Off**
-
-    -   Login with AAD credentials (Preview): **Off**
-
-    -   Enable auto-shutdown: **Off**
-
-    -   Enable backup: **Off**
-
-    -   Extensions: *None*
-
-    -   Tags: *None*
-
-1.  Wait for the provisioning to complete. This should take a few minutes.
 
 > **Result**: After you completed this exercise, you have provisioned Azure resources necessary to support highly available SAP NetWeaver deployments
 
@@ -246,13 +169,7 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
 
 ### Task 2: Connect to the database tier Azure VMs.
 
-1.  From the lab computer, in the Azure portal, navigate to the **az12003a-vm0** blade.
-
-1.  From the **az12003a-vm0** blade, connect to the Azure VM az12003a-vm0 via Remote Desktop. 
-
-1.  Within the RDP session to az12003a-vm0, in Server Manager, navigate to the **Local Server** view and turn off **IE Enhanced Security Configuration**.
-
-1.  Within the RDP session to az12003a-vm0, download and install PuTTY from [**https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html**](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
+1.  From the lab computer, navigate to putty from the desktop.
 
 1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM. Acknowledge the security alert and, when prompted, provide the following credentials:
 
@@ -466,7 +383,7 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
 
 1. Repeat the previous steps on i20-db-1.
 
-> **Result**: After you completed this exercise, you have onfigured operating system of Azure VMs running Linux to support a highly available SAP NetWeaver deployment
+> **Result**: After you completed this exercise, you have configured operating system of Azure VMs running Linux to support a highly available SAP NetWeaver deployment
 
 ## Exercise 3: Configure clustering on Azure VMs running Linux to support a highly available SAP NetWeaver deployment
 
@@ -476,7 +393,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 1: Configure clustering
 
-1.  Within the RDP session to az12003a-vm0, in the PuTTY-based SSH session to i20-db-0, run the following to initiate configuration of an HA cluster on i20-db-0:
+1.  From the lab computer, in the PuTTY-based SSH session to i20-db-0, run the following to initiate configuration of an HA cluster on i20-db-0:
 
     ```
     ha-cluster-init
@@ -498,7 +415,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
    > **Note**: The clustering setup generates an **hacluster** account with its password set to **linux**. You will chane it later in this task.
 
-1.  Within the RDP session to az12003a-vm0, in the PuTTY-based SSH session to i20-db-1, run the following to join the HA cluster on i20-db-0 from i20-db-1:
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-1, run the following to join the HA cluster on i20-db-0 from i20-db-1:
 
     ```
     ha-cluster-join
@@ -526,7 +443,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 2: Review corosync configuration
 
-1.  Within the RDP session to az12003a-vm0, in the PuTTY-based SSH session to i20-db-0, review content of the **/etc/corosync/corosync.conf** file by running:
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, review content of the **/etc/corosync/corosync.conf** file by running:
 
     ```
     cat /etc/corosync/corosync.conf
@@ -559,7 +476,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 3: Configure STONITH clustering options
 
-1.  Within the RDP session to az12003a-vm0, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-defaults.txt** with the following content:
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-defaults.txt** with the following content:
 
     ```
     property $id="cib-bootstrap-options" \
@@ -639,7 +556,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 7: Configure the STONITH cluster device 
 
-1.  Within the RDP session to az12003a-vm0, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-fencing.txt** with the following content (where `subscription_id`, `tenant_id`, `login_id,` and `password` are placeholders for the values you identified in Exercise 3 Task 5:
+1.  Within the lab computer, in the PuTTY-based SSH session to i20-db-0, create a new file named **crm-fencing.txt** with the following content (where `subscription_id`, `tenant_id`, `login_id,` and `password` are placeholders for the values you identified in Exercise 3 Task 5: (subscription and tenant id's can be retrieved from azure portal)
 
     ```
     primitive rsc_st_azure_1 stonith:fence_azure_arm \
@@ -649,14 +566,14 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
     colocation col_st_azure -2000: rsc_st_azure_1:Started rsc_st_azure_2:Started
     ```
 
-1.  From the SSH session on s03-db-0, apply the settings in the file by running **crm configure load update crm-fencing.txt**:
+1.  From the SSH session on i20-db-0, apply the settings in the file by running **crm configure load update crm-fencing.txt**:
     ```
     crm configure load update crm-fencing.txt
     ```
 
 ### Task 8: Review clustering configuration on Azure VMs running Linux by using Hawk
 
-1.  Within the RDP session to az12003a-vm0, start Internet Explorer and navigate to **https://i20-db-0:7630**. This should display the SUSE Hawk sign-in page.
+1.  Within the lab computer, start Internet Explorer and navigate to **https://i20-db-0:7630**. This should display the SUSE Hawk sign-in page.
 
    > **Note**: Ignore **This site is not secure** message.
 
