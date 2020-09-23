@@ -69,7 +69,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *select existing resource group named* **az12001b-ad-RG-{deploy-id}**
+    -   Resource group: *select existing resource group named* **az12001b-ad-RG-{deployment-id}**
 
     -   Location: *an Azure region where you can deploy Azure VMs and which is closest to the lab location*
 
@@ -105,7 +105,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *select existing resource group named* **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: *select existing resource group named* **az12001b-cl-RG-{deployment-id}**
 
     -   Virtual machine name: **az12001b-cl-vm0**
 
@@ -173,7 +173,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   Virtual machine name: **az12001b-cl-vm1**
 
@@ -244,7 +244,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 1.  In the Cloud Shell pane, run the following command, to create the first set of 4 managed disks that you will attach to the first Azure VM you deployed in the previous task:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
+    $resourceGroupName = 'az12001b-cl-RG-{deployment-id}'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -252,6 +252,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     for ($i=0;$i -lt 4;$i++) {New-AzDisk -ResourceGroupName $resourceGroupName -DiskName az12001b-cl-vm0-DataDisk$i -Disk $diskConfig}
     ```
+    >**Note:** You can get the deployment-id details from the environment details page.
 
 1.  In the Cloud Shell pane, run the following command, to create the second set of 4 managed disks that you will attach to the second Azure VM you deployed in the previous task:
 
@@ -269,7 +270,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Disk name: **az12001b-cl-vm0-DataDisk0**
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   HOST CACHING: **Read-only**
 
@@ -287,7 +288,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Disk name: **az12001b-cl-vm1-DataDisk0**
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   HOST CACHING: **Read-only**
 
@@ -315,7 +316,7 @@ Duration: 40 minutes
 1.  In the Cloud Shell pane, run the following command, to join the Windows Server 2019 Azure VMs you deployed in the second task of the previous exercise to the **adatum.com** Active Directory domain:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
+    $resourceGroupName = 'az12001b-cl-RG-{deployment-id}'
 
     $location = (Get-AzureRmResourceGroup -Name $resourceGroupName).Location
 
@@ -327,7 +328,9 @@ Duration: 40 minutes
 
     foreach ($vmName in $vmNames) { Set-AzVMExtension -ResourceGroupName $resourceGroupName -ExtensionType 'JsonADDomainExtension' -Name 'joindomain' -Publisher "Microsoft.Compute" -TypeHandlerVersion "1.0" -Vmname $vmName -Location $location -SettingString $settingString -ProtectedSettingString $protectedSettingString }
     ```
-
+    
+    >**Note:** You can get the deployment-id details from the environment details page.
+    
 1.  Wait for the script to complete before proceeding to the next task.
 
 
@@ -435,7 +438,7 @@ Duration: 40 minutes
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   Storage account name: *any unique name consisting of between 3 and 24 letters and digits*
 
@@ -518,7 +521,7 @@ Duration: 40 minutes
 1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
+    $resourceGroupName = 'az12001b-cl-RG-{deployment-id}'
 
     $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
 
@@ -526,7 +529,8 @@ Duration: 40 minutes
 
     Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
     ```
-
+    >**Note:** You can get the deployment-id details from the environment details page.
+    
 1.  To verify the resulting configuration, within the RDP session to az12001b-cl-vm0, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12001b-cl-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
@@ -586,7 +590,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   Name: **az12001b-cl-lb0**
 
@@ -663,7 +667,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 1.  In the Cloud Shell pane, run the following command to create the public IP address to be used by the second load balancer:
 
     ```
-    $resourceGroupName = 'az12001b-cl-RG-{deploy-id}'
+    $resourceGroupName = 'az12001b-cl-RG-{deployment-id}'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -671,6 +675,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     az network public-ip create --resource-group $resourceGroupName --name $pipName --sku Standard --location $location
     ```
+    >**Note:** You can get the deployment-id details from the environment details page
 
 1.  In the Cloud Shell pane, run the following command to create the second load balancer:
 
@@ -758,7 +763,7 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12001b-cl-RG-{deploy-id}**
+    -   Resource group: **az12001b-cl-RG-{deployment-id}**
 
     -   Virtual machine name: **az12001b-vm2**
 
@@ -823,4 +828,3 @@ In this exercise, you will implement Azure Load Balancers to accommodate cluster
 1.  Within the RDP session to az12001b-vm2, ensure that you can establish RDP session to both az12001b-cl-vm0 and az12001b-cl-vm1 via their private IP addresses (10.0.1.4 and 10.0.1.5, respectively). 
 
 > **Result**: After you completed this exercise, you have provisioned Azure network resources necessary to support highly available SAP NetWeaver deployments
-
