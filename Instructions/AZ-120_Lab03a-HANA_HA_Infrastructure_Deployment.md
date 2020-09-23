@@ -133,7 +133,6 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 1. If the deploymwnt fails, review the deployment details and identify the VM(s) where the installation of the CustomScriptExtension failed, then navigate to the blade of the VM(s) you identified in the previous step, select Extensions, and from the Extensions blade, remove the CustomScript extension and in the Azure portal, navigate to the az12003a-sap-RG resource group blade, select Deployments, select the link to the failed deployment, and select Redeploy. To redeploy, you will need to select the target resource group (az12003a-sap-RG) and provide the password for the root account (Pa55w.rd1234).
 
 
-
 ### Task 3: Deploy a jump host
 
    > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2019 Datacenter that will serve as a jump host. 
@@ -244,7 +243,7 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
 
 1.  From the lab computer, navigate to putty from the desktop.
 
-1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM. Acknowledge the security alert and, when prompted, provide the following credentials:
+1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM using Private Ip. Acknowledge the security alert and, when prompted, provide the following credentials:
 
     -   Login as: **student**
 
