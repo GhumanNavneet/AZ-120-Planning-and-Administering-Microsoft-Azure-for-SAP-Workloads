@@ -96,7 +96,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12003a-sap-RG**
+    -   Resource group: **az12003a-sap-RG-{deployment-id}**
 
     -   Location: *the same Azure region that you specified in the first task of this exercise*
 
@@ -145,7 +145,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *the name of a new resource group* **az12003a-dmz-RG**
+    -   Resource group: *the name of a new resource group* **az12003a-dmz-RG-{deployment-id}**
 
     -   Virtual machine name: **az12003a-vm0**
 
@@ -155,7 +155,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Image: **Windows Server 2019 Datacenter**
 
-    -   Size: **Standard D2s v3**
+    -   Size: **Standard_D2s_v3**
 
     -   Username: **Student**
 
