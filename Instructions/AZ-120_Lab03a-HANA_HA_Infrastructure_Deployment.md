@@ -90,6 +90,8 @@ In this exercise, you will deploy Azure infrastructure compute components necess
     "sku": "12-SP4", 
     ```
 
+1.  Also Navigate to line 2004 in the template section and remove the extensions part from the template ( to be exact from lines 2004 till 2028 )
+
 1.  Click **Save**. 
 
 1.  Back on the **SAP NetWeaver 3-tier (managed disk)** blade, initiate deployment with the following settings:
