@@ -1,5 +1,5 @@
 # AZ 120 Module 3: Implementing SAP on Azure
-# Lab 3a: Implement SAP architecture on Azure VMs running Linux
+# Lab 3: Implement SAP architecture on Azure VMs running Linux
 
 Estimated Time: 120 minutes
 
