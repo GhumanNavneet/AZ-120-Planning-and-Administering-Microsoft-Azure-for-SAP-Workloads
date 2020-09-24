@@ -241,7 +241,11 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
 
 ### Task 2: Connect to the database tier Azure VMs.
 
-1.  From the lab computer, navigate to putty from the desktop.
+1.  From the lab computer, in the Azure portal, navigate to the az12003a-vm0 blade.
+
+1.  From the az12003a-vm0 blade, connect to the Azure VM az12003a-vm0 via Remote Desktop.
+
+1.  Within the RDP session to az12003a-vm0, in Server Manager, navigate to the Local Server view and turn off IE Enhanced Security Configuration.
 
 1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM using Private Ip. Acknowledge the security alert and, when prompted, provide the following credentials:
 
