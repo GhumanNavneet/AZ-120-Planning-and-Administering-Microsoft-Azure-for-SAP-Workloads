@@ -171,7 +171,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Virtual network: **az12003a-sap-vnet**
 
-    -   Subnet: *a new subnet named* **bastionSubnet (10.3.255.0/24)**
+    -   Subnet: *Create a new subnet, click Manage subnet configuration and click **+Subnet** named as* **bastionSubnet ( provide address range as 10.3.255.0/24)**
 
     -   Public IP: *a new IP address named* **az12003a-vm0-ip**
 
