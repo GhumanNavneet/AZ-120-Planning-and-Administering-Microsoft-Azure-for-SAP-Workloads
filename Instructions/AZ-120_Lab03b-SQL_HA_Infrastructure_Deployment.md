@@ -62,7 +62,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   DnsPrefix: *give any unique name*
 
-    -   Vm Size: **Standard D4S\_v3**
+    -   Vm Size: **Standard_D4s_v3**
 
     -   _artifacts Location: *accept the default value*
 
