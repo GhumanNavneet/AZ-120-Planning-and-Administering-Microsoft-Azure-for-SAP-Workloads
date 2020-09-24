@@ -391,8 +391,6 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 ### Task 5: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
 
-> **Note**: Ensure that the deployment of the S2D cluster you initiated in task 4 of exercise 1 has successfully completed before starting this task.
-
 1.  From the RDP session to az12003b-vm0, use Remote Desktop to connect to **i20-ascs-0.adatum.com** Azure VM. When prompted, provide the following credentials:
 
     -   Login as: **ADATUM\\Student**
