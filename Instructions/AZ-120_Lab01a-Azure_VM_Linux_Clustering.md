@@ -40,7 +40,9 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  From the lab computer, start a Web browser, and navigate to the Azure portal at https://portal.azure.com
 
-1.  If prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you will be using for this lab.
+1.  Use the azure credentials provided in the Environment Details tab to log in to the portal. 
+     
+      >**Note:** Refer the Environment Details tab for any other lab credentials/details.
 
 1.  In the Azure portal, use the **Search resources, services, and docs** text box at the top of the Azure portal page to search for and navigate to the **Proximity placement groups** blade and, on the **Proximity placement groups** blade, select **+ Add**.
 
