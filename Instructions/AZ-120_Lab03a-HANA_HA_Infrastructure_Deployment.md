@@ -173,7 +173,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subnet: *Create a new subnet, click Manage subnet configuration and click **+Subnet** provide name as* **bastionSubnet ( provide address range as 10.3.255.0/24)**
 
-    -   Public IP: *a new IP address named* **az12003a-vm0-ip**
+    -   Come back to Create a virtual machine tab , Public IP: *a new IP address named* **az12003a-vm0-ip**
 
     -   NIC network security group: **Basic**
 
