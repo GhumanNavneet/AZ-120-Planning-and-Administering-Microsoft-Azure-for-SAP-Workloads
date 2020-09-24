@@ -1,5 +1,5 @@
 # AZ 120 Module 1: Foundations of SAP on Azure
-# Lab 1b: Implementing Windows clustering on Azure VMs
+# Lab 2: Implementing Windows clustering on Azure VMs
 
 Estimated Time: 120 minutes
 
