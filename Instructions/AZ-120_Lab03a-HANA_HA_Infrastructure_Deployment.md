@@ -247,6 +247,8 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
 
 1.  Within the RDP session to az12003a-vm0, in Server Manager, navigate to the Local Server view and turn off IE Enhanced Security Configuration.
 
+1.  Within the RDP session to az12003a-vm0, download and install PuTTY from https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html.
+
 1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM using Private Ip. Acknowledge the security alert and, when prompted, provide the following credentials:
 
     -   Login as: **student**
