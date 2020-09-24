@@ -671,7 +671,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 ### Task 8: Review clustering configuration on Azure VMs running Linux by using Hawk
 
-1.  Within the lab computer, start Internet Explorer and navigate to **https://i20-db-0:7630**. This should display the SUSE Hawk sign-in page.
+1.  Within the RDP session to az12003a-vm0, start Internet Explorer and navigate to **https://i20-db-0:7630**. This should display the SUSE Hawk sign-in page.
 
    > **Note**: Ignore **This site is not secure** message.
 
