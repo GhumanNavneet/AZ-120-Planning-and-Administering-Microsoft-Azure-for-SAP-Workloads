@@ -46,7 +46,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
     LOCATION='<region>'
     ```
 
-1.  In the Cloud Shell pane, run the following command :
+1.  In the Cloud Shell pane, run the following command (make sure to provide the deployment id , you can find it from the environment details tab):
 
     ```
     RESOURCE_GROUP_NAME='az12003a-sap-RG-{deployment-id}'
