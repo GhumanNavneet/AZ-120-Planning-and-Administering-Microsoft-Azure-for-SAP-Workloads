@@ -187,7 +187,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Image: **Windows Server 2019 Datacenter**
 
-    -   Size: **Standard D2s v3**
+    -   Size: **Standard_D2s_v3**
 
     -   Username: **Student**
 
