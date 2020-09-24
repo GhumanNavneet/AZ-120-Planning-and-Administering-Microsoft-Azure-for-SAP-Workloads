@@ -145,7 +145,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *the name of a new resource group* **az12003a-dmz-RG-{deployment-id}**
+    -   Resource group: *select the existing resource group* **az12003a-dmz-RG-{deployment-id}**
 
     -   Virtual machine name: **az12003a-vm0**
 
