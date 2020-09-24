@@ -253,7 +253,9 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
       https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
       ```
 
-1.  Use PuTTY to connect via SSH to **i20-db-0** Azure VM using Private Ip. Acknowledge the security alert and, when prompted, provide the following credentials:
+    Download the MSI Windows Installer - 64 bit
+
+1.  From search button navigate to PuTTY and use PuTTY to connect via SSH to **i20-db-0** Azure VM using Private Ip( **10.3.0.20** for i20-db-0 and **10.3.0.21** for i20-db-1. Acknowledge the security alert and, when prompted, provide the following credentials:
 
     -   Login as: **student**
 
