@@ -170,73 +170,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  Do not wait for the deployment to complete but instead proceed to the next task. 
 
-### Task 5: Deploy the Scale-Out File Server (SOFS) cluster
-
-In this task, you will deploy the scale-out file server (SOFS) cluster that will be hosting a file share for the SAP ASCS servers by using an Azure Resource Manager QuickStart template from GitHub available at [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
-
-1.  On the lab computer, start a browser and browse to [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
-
-    > **Note**: Make sure to use Microsoft Edge or a third party browser. Do not use Internet Explorer.
-
-1.  On the page titled **Use Managed Disks to Create a Storage Spaces Direct (S2D) Scale-Out File Server (SOFS) Cluster with Windows Server 2016**, click **Deploy to Azure**. This will automatically redirect your browser to the Azure portal and display the **Custom deployment** blade.
-
-1.  From the **Custom deployment** blade, initiate a deployment with the following settings:
-
-    -   Subscription: **Your Azure subscription name**.
-
-    -   Resource group: *a new resource group named* **az12003b-s2d-RG**
-
-    -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
-
-    -   Name Prefix: **i20**
-
-    -   Vm Size: **Standard D4S\_v3**
-
-    -   Enable Accelerated Networking: **true**
-
-    -   Image Sku: **2016-Datacenter-Server-Core**
-
-    -   VM Count: **2**
-
-    -   VM Disk Size: **128**
-
-    -   VM Disk Count: **3**
-
-    -   Existing Domain Name: **adatum.com**
-
-    -   Admin Username: **Student**
-
-    -   Admin Password: **Pa55w.rd1234**
-
-    -   Existing Virtual Network RG Name: **az12003b-ad-RG**
-
-    -   Existing Virtual Network Name: **adVNet**
-
-    -   Existing Subnet Name: **s2dSubnet**
-
-    -   Sofs Name: **sapglobalhost**
-
-    -   Share Name: **sapmnt**
-
-    -   Scheduled Update Day: **Sunday**
-
-    -   Scheduled Update Time: **3:00 AM**
-
-    -   Realtime Antimalware Enabled: **false**
-
-    -   Scheduled Antimalware Enabled: **false**
-
-    -   Scheduled Antimalware Time: **120**
-
-    -   \_artifacts Location: **Accept the default value**
-
-    -   \_artifacts Location Sas Token: **Leave the default value**
-
-    -   I agree to the terms and conditions stated above: *enabled*
-
-1.  The deployment might take about 20 minutes. Do not wait for the deployment to complete but instead proceed to the next task.
-
-### Task 5: Deploy a jump host
+### Task 4: Deploy a jump host
 
    > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2016 Datacenter that will serve as a jump host. 
 
@@ -449,40 +383,13 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
-1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
-
-    ```
-    Install-PackageProvider -Name NuGet -Force
-
-    Install-Module -Name Az -Force
-    ```
-
-1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
-
-    ```
-    Add-AzAccount
-    ```
-
-    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
-
-1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
-
-    ```
-    $resourceGroupName = 'az12003b-sap-RG'
-
-    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
-
-    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
-
-    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
-    ```
 
 1.  To verify the resulting configuration, within the RDP session to i20-db-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-db-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 6: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
+### Task 5: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
 
 > **Note**: Ensure that the deployment of the S2D cluster you initiated in task 4 of exercise 1 has successfully completed before starting this task.
 
@@ -526,55 +433,11 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
-1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
-
-    ```
-    Install-PackageProvider -Name NuGet -Force
-
-    Install-Module -Name Az -Force
-    ```
-
-1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
-
-    ```
-    Add-AzAccount
-    ```
-
-    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
-
-1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
-
-    ```
-    $resourceGroupName = 'az12003b-sap-RG'liveid
-
-    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
-
-    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
-
-    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
-    ```
-
 1.  To verify the resulting configuration, Within the RDP session to i20-ascs-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-ascs-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
-
-### Task 7: Set permissions on the \\\\GLOBALHOST\\sapmnt share
-
-In this task, you will set share-level permissions on the **\\\\GLOBALHOST\\sapmnt** share.
-
-> **Note**: By default, the Full Control permissions are granted only to the ADATUM\Student account. 
-
-1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the **Windows PowerShell ISE** window, run the following:
-
-    ```
-    $remoteSession = New-CimSession -ComputerName SAPGLOBALHOST
-
-    Grant-SmbShareAccess -Name sapmnt -AccountName 'ADATUM\Domain Admins' -AccessRight Full -CimSession $remoteSession -Force
-   
-    ```
-
-### Task 8: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
+### Task 6: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
 
 1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the Windows PowerShell ISE session, run the following to configure registry entries required to faciliate the installation of SAP ASCS components and the use of virtual names:
 
