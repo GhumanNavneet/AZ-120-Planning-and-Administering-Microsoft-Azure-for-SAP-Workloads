@@ -23,12 +23,6 @@ After completing this lab, you will be able to:
 
 -   Configure clustering on Azure VMs running Windows to support a highly available SAP NetWeaver deployment
 
-## Requirements
-
--   A Microsoft Azure subscription
-
--   A lab computer running Windows 10, Windows Server 2016, or Windows Server 2016 with access to Azure
-
 
 ## Exercise 1: Provision Azure resources necessary to support highly available SAP NetWeaver deployments
 
