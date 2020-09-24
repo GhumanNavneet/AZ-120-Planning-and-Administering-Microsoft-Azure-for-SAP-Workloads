@@ -1,5 +1,5 @@
 # AZ 120 Module 1: Foundations of SAP on Azure
-# Lab 1a: Implementing Linux clustering on Azure VMs
+# Lab 1: Implementing Linux clustering on Azure VMs
 
 Estimated Time: 90 minutes
 
