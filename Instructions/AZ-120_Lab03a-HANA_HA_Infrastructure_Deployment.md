@@ -524,7 +524,6 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 1.  In the PuTTY-based SSH session to i20-db-0, run the following to set the password of the **hacluster** account to **Pa55w.rd1234** (type the new password when prompted): 
     ```
     passwd hacluster
-
     ```
 
 1.  Repeat the previous step 3 to change the password on i20-db-1.
