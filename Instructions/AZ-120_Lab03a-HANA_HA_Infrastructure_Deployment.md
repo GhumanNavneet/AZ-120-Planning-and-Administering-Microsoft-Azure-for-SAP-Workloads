@@ -292,6 +292,8 @@ In this exercise, you will configure Azure VMs running SUSE Linux Enterprise Ser
     ```
 
 1.  In the **/etc/ssh/sshd\_config** file, locate the **PermitRootLogin** and **AuthorizedKeysFile** entries, and configure them as follows:
+    To edit the file press insert button and after editing press esc button then to save press " shift + : " and enter " wq " and press enter it will save the changes.
+    
     ```
     PermitRootLogin yes
     AuthorizedKeysFile      /root/.ssh/authorized_keys
