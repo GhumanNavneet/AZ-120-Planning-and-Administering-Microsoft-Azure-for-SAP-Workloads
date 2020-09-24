@@ -615,7 +615,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
 1.  On the **Register an application** blade, specify the following settings, and click **Register**:
 
-    -   Name: **Stonith app**
+    -   Name: **Stonith-app-{deployment-id}**
 
     -   Supported account type: **Accounts in this organizational directory only**
 
@@ -642,7 +642,7 @@ In this exercise, you will configure clustering on Azure VMs running Linux to su
 
     -   Assign access to: **Azure AD user, group, or service principal**
 
-    -   Select: **Stonith app**
+    -   Select: **Stonith-app-{deployment-id}**
 
 1.  Repeat the previous steps to assign the Stonith app the Owner role to the **i20-db-1** Azure VM
 
