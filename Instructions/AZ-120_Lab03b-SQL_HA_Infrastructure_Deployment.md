@@ -60,7 +60,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Domain Name: **adatum.com**
 
-    -   DnsPrefix: *accept the default value*
+    -   DnsPrefix: *give any unique name*
 
     -   Vm Size: **Standard D4S\_v3**
 
