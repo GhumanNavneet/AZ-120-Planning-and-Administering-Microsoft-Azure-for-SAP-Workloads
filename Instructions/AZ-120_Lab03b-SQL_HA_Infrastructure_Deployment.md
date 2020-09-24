@@ -1,5 +1,5 @@
 # AZ 120 Module 3: Implementing SAP on Azure
-# Lab 4: Implement SAP architecture on Azure VMs running Windows
+# Lab 3b: Implement SAP architecture on Azure VMs running Windows
 
 Estimated Time: 150 minutes
 
@@ -22,6 +22,12 @@ After completing this lab, you will be able to:
 -   Configure operating system of Azure VMs running Windows to support a highly available SAP NetWeaver deployment
 
 -   Configure clustering on Azure VMs running Windows to support a highly available SAP NetWeaver deployment
+
+## Requirements
+
+-   A Microsoft Azure subscription
+
+-   A lab computer running Windows 10, Windows Server 2016, or Windows Server 2016 with access to Azure
 
 
 ## Exercise 1: Provision Azure resources necessary to support highly available SAP NetWeaver deployments
@@ -48,7 +54,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *select existing resource group* **az12003b-ad-RG-{deployment-id}**
+    -   Resource group: *a new resource group named* **az12003b-ad-RG**
 
     -   Location: *an Azure region where you can deploy Azure VMs and which is closest to the lab location*
 
@@ -60,9 +66,9 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Domain Name: **adatum.com**
 
-    -   DnsPrefix: *give any unique name*
+    -   DnsPrefix: *accept the default value*
 
-    -   Vm Size: **Standard_D4s_v3**
+    -   Vm Size: **Standard D4S\_v3**
 
     -   _artifacts Location: *accept the default value*
 
@@ -72,12 +78,11 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     > **Note**: The deployment should take about 35 minutes. Wait for the deployment to complete before you proceed to the next task.
 
-
 ### Task 2: Provision subnets that will host Azure VMs running highly available SAP NetWeaver deployment and the S2D cluster.
 
-1.  In the Azure Portal, navigate to the blade of the **az12003b-ad-RG-{deployment-id}** resource group.
+1.  In the Azure Portal, navigate to the blade of the **az12003b-ad-RG** resource group.
 
-1.  On the **az12003b-ad-RG-{deployment-id}** resource group blade, in the list of resources, locate the **adVNET** virtual network and click its entry to display the **adVNET** blade.
+1.  On the **az12003b-ad-RG** resource group blade, in the list of resources, locate the **adVNET** virtual network and click its entry to display the **adVNET** blade.
 
 1.  From the **adVNET** blade, navigate to its **adVNET - Subnets** blade. 
 
@@ -97,10 +102,10 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     > **Note**: If this is the first time you are launching Cloud Shell in the current Azure subscription, you will be asked to create an Azure file share to persist Cloud Shell files. If so, accept the defaults, which will result in creation of a storage account in an automatically generated resource group.
 
-1.  In the Cloud Shell pane, run the following command to identify the virtual network created in the previous task (please find the deployment id from environment detials tab):
+1.  In the Cloud Shell pane, run the following command to identify the virtual network created in the previous task:
 
     ```
-    $resourceGroupName = 'az12003b-ad-RG-{deployment-id}'
+    $resourceGroupName = 'az12003b-ad-RG'
 
     $vNetName = 'adVNet'
 
@@ -129,7 +134,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *select existing resource group* **az12003b-sap-RG-{deployment-id}**
+    -   Resource group: *a new resource group named* **az12003b-sap-RG**
 
     -   Location: *the same Azure region that you specified in the first task of this exercise*
 
@@ -165,7 +170,73 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  Do not wait for the deployment to complete but instead proceed to the next task. 
 
-### Task 4: Deploy a jump host
+### Task 5: Deploy the Scale-Out File Server (SOFS) cluster
+
+In this task, you will deploy the scale-out file server (SOFS) cluster that will be hosting a file share for the SAP ASCS servers by using an Azure Resource Manager QuickStart template from GitHub available at [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
+
+1.  On the lab computer, start a browser and browse to [**https://github.com/robotechredmond/301-storage-spaces-direct-md**](https://github.com/robotechredmond/301-storage-spaces-direct-md). 
+
+    > **Note**: Make sure to use Microsoft Edge or a third party browser. Do not use Internet Explorer.
+
+1.  On the page titled **Use Managed Disks to Create a Storage Spaces Direct (S2D) Scale-Out File Server (SOFS) Cluster with Windows Server 2016**, click **Deploy to Azure**. This will automatically redirect your browser to the Azure portal and display the **Custom deployment** blade.
+
+1.  From the **Custom deployment** blade, initiate a deployment with the following settings:
+
+    -   Subscription: **Your Azure subscription name**.
+
+    -   Resource group: *a new resource group named* **az12003b-s2d-RG**
+
+    -   Region: *the same Azure region where you deployed Azure VMs in the previous tasks of this exercise*
+
+    -   Name Prefix: **i20**
+
+    -   Vm Size: **Standard D4S\_v3**
+
+    -   Enable Accelerated Networking: **true**
+
+    -   Image Sku: **2016-Datacenter-Server-Core**
+
+    -   VM Count: **2**
+
+    -   VM Disk Size: **128**
+
+    -   VM Disk Count: **3**
+
+    -   Existing Domain Name: **adatum.com**
+
+    -   Admin Username: **Student**
+
+    -   Admin Password: **Pa55w.rd1234**
+
+    -   Existing Virtual Network RG Name: **az12003b-ad-RG**
+
+    -   Existing Virtual Network Name: **adVNet**
+
+    -   Existing Subnet Name: **s2dSubnet**
+
+    -   Sofs Name: **sapglobalhost**
+
+    -   Share Name: **sapmnt**
+
+    -   Scheduled Update Day: **Sunday**
+
+    -   Scheduled Update Time: **3:00 AM**
+
+    -   Realtime Antimalware Enabled: **false**
+
+    -   Scheduled Antimalware Enabled: **false**
+
+    -   Scheduled Antimalware Time: **120**
+
+    -   \_artifacts Location: **Accept the default value**
+
+    -   \_artifacts Location Sas Token: **Leave the default value**
+
+    -   I agree to the terms and conditions stated above: *enabled*
+
+1.  The deployment might take about 20 minutes. Do not wait for the deployment to complete but instead proceed to the next task.
+
+### Task 5: Deploy a jump host
 
    > **Note**: Since Azure VMs you deployed in the previous task are not accessible from Internet, you will deploy an Azure VM running Windows Server 2016 Datacenter that will serve as a jump host. 
 
@@ -177,7 +248,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: *select existing resource group* **az12003b-dmz-RG-{deployment-id}**
+    -   Resource group: *a new resource group named* **az12003b-dmz-RG**
 
     -   Virtual machine name: **az12003b-vm0**
 
@@ -187,7 +258,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
     -   Image: **Windows Server 2019 Datacenter**
 
-    -   Size: **Standard_D2s_v3**
+    -   Size: **Standard D2s v3**
 
     -   Username: **Student**
 
@@ -254,10 +325,10 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the Azure Portal, start a PowerShell session in Cloud Shell. 
 
-1.  In the Cloud Shell pane, run the following command, to join the Windows Server Azure VMs you deployed in the third task of the previous exercise to the **adatum.com** Active Directory domain (please make sure to change the deployment id):
+1.  In the Cloud Shell pane, run the following command, to join the Windows Server Azure VMs you deployed in the third task of the previous exercise to the **adatum.com** Active Directory domain:
 
     ```
-    $resourceGroupName = 'az12003b-sap-RG-{deployment-id}'
+    $resourceGroupName = 'az12003b-sap-RG'
 
     $location = (Get-AzResourceGroup -Name $resourceGroupName).Location
 
@@ -269,8 +340,6 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
     foreach ($vmName in $vmNames) { Set-AzVMExtension -ResourceGroupName $resourceGroupName -ExtensionType 'JsonADDomainExtension' -Name 'joindomain' -Publisher "Microsoft.Compute" -TypeHandlerVersion "1.0" -Vmname $vmName -Location $location -SettingString $settingString -ProtectedSettingString $protectedSettingString }
     ```
-
-   > **Note**: Since there are six vms, will show six results after the commands run.
 
 ### Task 2: Examine the storage configuration of the database tier Azure VMs.
 
@@ -315,7 +384,7 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
     -   Subscription: *the name of your Azure subscription*
 
-    -   Resource group: **az12003b-sap-RG-{deployment-id}**
+    -   Resource group: **az12003b-sap-RG**
 
     -   Storage account name: *any unique name consisting of between 3 and 24 letters and digits*
 
@@ -380,12 +449,42 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
+1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
+
+    ```
+    Install-PackageProvider -Name NuGet -Force
+
+    Install-Module -Name Az -Force
+    ```
+
+1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
+
+    ```
+    Add-AzAccount
+    ```
+
+    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
+
+1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
+
+    ```
+    $resourceGroupName = 'az12003b-sap-RG'
+
+    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
+
+    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
+
+    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
+    ```
+
 1.  To verify the resulting configuration, within the RDP session to i20-db-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-db-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 5: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
+### Task 6: Configure Failover Clustering on Azure VMs running Windows Server 2016 to support a highly available ASCS tier of the SAP NetWeaver installation.
+
+> **Note**: Ensure that the deployment of the S2D cluster you initiated in task 4 of exercise 1 has successfully completed before starting this task.
 
 1.  From the RDP session to az12003b-vm0, use Remote Desktop to connect to **i20-ascs-0.adatum.com** Azure VM. When prompted, provide the following credentials:
 
@@ -427,12 +526,55 @@ In this exercise, you will configure operating system of Azure VMs running Windo
 
 1.  In the **Permission Entry for Clusters** window, ensure that **Allow** appears in the **Type** drop-down list. Next, in the **Applies to** drop-down list, select **This object and all descendant objects**. In the **Permissions** list, select the **Create Computer objects** and **Delete Computer objects** checkboxes, and click **OK** twice.
 
+1.  Within the Windows PowerShell ISE session, install the Az PowerShell module by running the following:
+
+    ```
+    Install-PackageProvider -Name NuGet -Force
+
+    Install-Module -Name Az -Force
+    ```
+
+1.  Within the Windows PowerShell ISE session, authenticate by using your Azure AD credentials by running the following:
+
+    ```
+    Add-AzAccount
+    ```
+
+    > **Note**: When prompted, sign in with the work or school or personal Microsoft account with the owner or contributor role to the Azure subscription you are using for this lab.
+
+1.  Within the Windows PowerShell ISE session, set the Cloud Witness quorum of the new cluster by running the following:
+
+    ```
+    $resourceGroupName = 'az12003b-sap-RG'liveid
+
+    $cwStorageAccountName = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName)[0].StorageAccountName
+
+    $cwStorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $cwStorageAccountName).Value[0]
+
+    Set-ClusterQuorum -CloudWitness -AccountName $cwStorageAccountName -AccessKey $cwStorageAccountKey
+    ```
+
 1.  To verify the resulting configuration, Within the RDP session to i20-ascs-0.adatum.com, from the **Tools** menu in Server Manager, start **Failover Cluster Manager**.
 
 1.  In the **Failover Cluster Manager** console, review the **az12003b-ascs-cl0** cluster configuration, including its nodes, as well as is witness and network settings. Note that the cluster does not have any shared storage.
 
 
-### Task 6: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
+### Task 7: Set permissions on the \\\\GLOBALHOST\\sapmnt share
+
+In this task, you will set share-level permissions on the **\\\\GLOBALHOST\\sapmnt** share.
+
+> **Note**: By default, the Full Control permissions are granted only to the ADATUM\Student account. 
+
+1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the **Windows PowerShell ISE** window, run the following:
+
+    ```
+    $remoteSession = New-CimSession -ComputerName SAPGLOBALHOST
+
+    Grant-SmbShareAccess -Name sapmnt -AccountName 'ADATUM\Domain Admins' -AccessRight Full -CimSession $remoteSession -Force
+   
+    ```
+
+### Task 8: Configure operating system prerequisites for installing SAP NetWeaver ASCS and database components
 
 1.  Within the Remote Desktop session to i20-ascs-0.adatum.com, from the Windows PowerShell ISE session, run the following to configure registry entries required to faciliate the installation of SAP ASCS components and the use of virtual names:
 
