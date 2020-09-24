@@ -49,7 +49,7 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 1.  In the Cloud Shell pane, run the following command :
 
     ```
-    RESOURCE_GROUP_NAME='az12003a-sap-RG'
+    RESOURCE_GROUP_NAME='az12003a-sap-RG-{deployment-id}'
     ```
 
 1.  In the Cloud Shell pane, run the following command to create a virtual network with a single subnet in the resource group :
