@@ -84,13 +84,11 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  On the **SAP NetWeaver 3-tier (managed disk)** blade, click **Edit template**
 
-1.  On the **Edit template** blade, locate the variable named **images**, locate the **SLES 12** section within the variable definition, and change the value of the `sku` key to `12-SP4`, so it looks as follows:
+1.  On the **Edit template** blade, locate the variable named **images**, locate the **SLES 12** section within the variable definition, and verify that the value of the `sku` key is `12-SP4`:
 
     ```
     "sku": "12-SP4", 
     ```
-
-1.  Also Navigate to line 2004 in the template section and remove the CustomScriptExtension part from the template (to be exact from lines 2004 till 2028)
 
 1.  Click **Save**. 
 
@@ -132,7 +130,10 @@ In this exercise, you will deploy Azure infrastructure compute components necess
 
 1.  Do not Wait for the deployment to complete but instead proceed to the next task. 
 
-1. If the deployment fails, review the deployment details and identify the VM(s)(in this case it will be i20-db-0 and i20-db-1) where the installation of the CustomScriptExtension failed, then navigate to the blade of the VM(s) you identified in the previous step, select Extensions, and from the Extensions blade, uninstall the CustomScript extension and in the Azure portal, navigate to the az12003a-sap-RG-{deployment-id} resource group blade, select Deployments, select the link to the failed deployment, and select Redeploy. To redeploy, you will need to select the target resource group (az12003a-sap-RG-{deployment-id}) and provide the password for the root account (Pa55w.rd1234).Ignore the error coming under resource group
+1. If the deployment fails, review the deployment details and identify the VM(s)(in this case it will be i20-db-0 and i20-db-1) where the installation of the CustomScriptExtension failed, then peform the below steps:
+   - Navigate to the blade of the VM(s) you identified, then select Extensions. From the Extensions blade, click on **Custom Script** entry, then click on **Uninstall** to uninstall the CustomScript extension.
+   - From the Azure portal, navigate to the az12003a-sap-RG-{deployment-id} resource group blade, then  select Deployments, select the link to the failed deployment, and select Redeploy. 
+   - To redeploy, you will need to select the target resource group (az12003a-sap-RG-{deployment-id}) and provide the password for the root account (Pa55w.rd1234).Ignore the error coming under resource group
 
 
 ### Task 3: Deploy a jump host
